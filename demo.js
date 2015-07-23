@@ -1,7 +1,7 @@
 /*
 	demo.js v0.6
 
-	- handy utility for quickly creating WebGL demos
+	- handy utility for quickly creating canvas demos
 
 	@author George Corney (haxiomic)
 */
@@ -119,9 +119,7 @@ DEMO.Demo.prototype.onMouseLeave = function(e){}
 DEMO.Demo.prototype.listeners = {};//{ name: [callbacks] }
 
 DEMO.Demo.prototype.addEventListener = function(eventName, callback){
-	if(!this.listeners[eventName])
-		this.listeners[eventName] = [];
-
+	this.listeners[eventName] = this.listeners[eventName] || [];
 	this.listeners[eventName].push(callback);
 	return this;
 }
