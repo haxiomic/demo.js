@@ -1,5 +1,5 @@
 /*
-	demo.js v0.6
+	demo.js v0.7
 
 	- handy utility for quickly creating WebGL demos
 
@@ -13,8 +13,12 @@ var DEMO = {};
 	Demo
 
 	base class for demos
+	implements
+	- inheritance
+	- mouse events
+	- events
 */
-DEMO.Demo = function(canvas){
+var Demo = function(canvas){
 	//private
 	var initTime = Date.now()/1000;
 	var lastTime = initTime;
@@ -32,10 +36,11 @@ DEMO.Demo = function(canvas){
 		requestAnimationFrame(mainLoop);
 	}).bind(this);
 
-	//mouse handling
 	this.canvas = canvas;
 	this.running = false;
 	this.time = 0;
+
+	//mouse
 	this.mouseDown = false;
 	this.mouse = {
 		x:0,
@@ -68,7 +73,7 @@ DEMO.Demo = function(canvas){
 	}).bind(this));
 }
 
-DEMO.Demo.extend = function(constructor){
+Demo.extend = function(constructor){
 	var cClass = this;
 	var obj = constructor;
 	obj.prototype = Object.create(cClass.prototype);
@@ -79,46 +84,46 @@ DEMO.Demo.extend = function(constructor){
 	return obj;
 }
 
-DEMO.Demo.prototype.constructor = DEMO.Demo;
+Demo.prototype.constructor = Demo;
 
-DEMO.Demo.prototype.start = function(){
+Demo.prototype.start = function(){
 	if(this.running) return;
 	this.running = true;
 	this._mainLoop();
 	this.dispatch('start', this);
 }
 
-DEMO.Demo.prototype.stop = function(){
+Demo.prototype.stop = function(){
 	this.running = false;
 	this.dispatch('stop', this);
 }
 
-DEMO.Demo.prototype.update = function(time){}
+Demo.prototype.update = function(time){}
 
-DEMO.Demo.prototype.render = function(dt){}
+Demo.prototype.render = function(dt){}
 
-DEMO.Demo.prototype.setSize = function(width, height){
+Demo.prototype.setSize = function(width, height){
 	this.canvas.width = width;
 	this.canvas.height = height;
 	return this;
 }
 
-DEMO.Demo.prototype.width = function(){
+Demo.prototype.width = function(){
 	return this.canvas.clientWidth;
 }
 
-DEMO.Demo.prototype.height = function(){
+Demo.prototype.height = function(){
 	return this.canvas.clientHeight;
 }
 
-DEMO.Demo.prototype.onMouseDown = function(e){}
-DEMO.Demo.prototype.onMouseUp = function(e){}
-DEMO.Demo.prototype.onMouseMove = function(e){}
-DEMO.Demo.prototype.onMouseLeave = function(e){}
+Demo.prototype.onMouseDown = function(e){}
+Demo.prototype.onMouseUp = function(e){}
+Demo.prototype.onMouseMove = function(e){}
+Demo.prototype.onMouseLeave = function(e){}
 
-DEMO.Demo.prototype.listeners = {};//{ name: [callbacks] }
+Demo.prototype.listeners = {};//{ name: [callbacks] }
 
-DEMO.Demo.prototype.addEventListener = function(eventName, callback){
+Demo.prototype.addEventListener = function(eventName, callback){
 	if(!this.listeners[eventName])
 		this.listeners[eventName] = [];
 
@@ -126,7 +131,7 @@ DEMO.Demo.prototype.addEventListener = function(eventName, callback){
 	return this;
 }
 
-DEMO.Demo.prototype.removeEventListener = function(eventName, callback){
+Demo.prototype.removeEventListener = function(eventName, callback){
 	if(!this.listeners[eventName]){
 		while(true){
 			var cbi = this.listeners[eventName].indexOf(callback);
@@ -137,7 +142,7 @@ DEMO.Demo.prototype.removeEventListener = function(eventName, callback){
 	return this;
 }
 
-DEMO.Demo.prototype.dispatch = function(eventName, data){
+Demo.prototype.dispatch = function(eventName, data){
 	var callbacks = this.listeners[eventName];
 	if(callbacks){
 		for(var i = 0; i < callbacks.length; i++){
@@ -146,7 +151,6 @@ DEMO.Demo.prototype.dispatch = function(eventName, data){
 	}
 	return this;
 }
-
 
 
 //Utils
