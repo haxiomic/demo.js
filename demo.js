@@ -123,7 +123,7 @@ Demo.prototype.onMouseLeave = function(e){}
 
 Demo.prototype.listeners = {};//{ name: [callbacks] }
 
-DEMO.Demo.prototype.addEventListener = function(eventName, callback){
+Demo.prototype.addEventListener = function(eventName, callback){
 	this.listeners[eventName] = this.listeners[eventName] || [];
 	this.listeners[eventName].push(callback);
 	return this;
