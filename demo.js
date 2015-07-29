@@ -1,5 +1,5 @@
 /*
-	demo.js v0.7
+	demo.js v0.0.7
 
 	- handy utility for quickly creating canvas demos
 
@@ -16,7 +16,7 @@ var DEMO = {};
 	implements
 	- inheritance
 	- mouse events
-	- events
+	- custom events
 */
 var Demo = function(canvas){
 	//private

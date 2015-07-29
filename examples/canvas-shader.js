@@ -3,7 +3,7 @@
 	
 	for canvas-covering pixel shaders
 */
-DEMO.CanvasShader = DEMO.Demo.extend(function(canvas, fragmentShader){
+DEMO.CanvasShader = Demo.extend(function(canvas, fragmentShader){
 	DEMO.CanvasShader.parent.call(this, canvas);//super
 
 	//set the canvas attribute dimensions (not just the style dimensions)
