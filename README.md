@@ -8,7 +8,7 @@ This is a little utility class to quickly whip up canvas based demos.
 ## Takes care of
 
 - inheritance
-- mouse
+- mouse interaction
 - custom event dispatch
 - time tracking
 
